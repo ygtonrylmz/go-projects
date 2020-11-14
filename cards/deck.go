@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"io/ioutil"
 	"strings"
 )
 
@@ -43,4 +44,8 @@ func (d deck) toString() string {
 	singleStr := strings.Join(sliceStr, ",")
 
 	return singleStr
+}
+
+func (d deck) saveToFile(fileName string) error {
+	return ioutil.WriteFile(fileName, []byte(d.toString()), 0666)
 }

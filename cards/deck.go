@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"io/ioutil"
+	"os"
 	"strings"
 )
 
@@ -48,4 +49,20 @@ func (d deck) toString() string {
 
 func (d deck) saveToFile(fileName string) error {
 	return ioutil.WriteFile(fileName, []byte(d.toString()), 0666)
+}
+
+func newDeckFromFile(fileName string) deck {
+	byteSlice, err := ioutil.ReadFile(fileName)
+	if err != nil {
+		// Option 1 - log error and return a call to newDeck()
+		// Option 2 - log error and quit program
+		fmt.Println("Error: ", err)
+		os.Exit(-1)
+	}
+
+	strWithComma := string(byteSlice) // All string with comma
+	strSlice := strings.Split(strWithComma, ",")
+
+	return deck(strSlice)
+
 }

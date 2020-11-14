@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"strings"
 )
 
 // Create a new type of deck
@@ -29,10 +30,17 @@ func newDeck() deck {
 // d = cards
 func (d deck) print() {
 	for i, card := range d {
-		fmt.Println(i,card)
+		fmt.Println(i, card)
 	}
 }
 
 func deal(d deck, handSize int) (deck, deck) {
 	return d[:handSize], d[handSize:]
+}
+
+func (d deck) toString() string {
+	sliceStr := []string(d)
+	singleStr := strings.Join(sliceStr, ",")
+
+	return singleStr
 }
